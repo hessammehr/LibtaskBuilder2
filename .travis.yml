@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for hessammehr/LibtaskBuilder2; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: nko9WGR6YgMncAKwKY2KOhygAMJSC/ELlLxILM45iPG4Wrer6Xr7kBupVMK8rseB7+d0Ab3yceia7TG5VkM2Ncv/JKogrAOeDJE49WPezKNeC17UXxwg55cvxmx5UVHIsFjxr4oBKRbzq5iMx7yPytnb6wIUwHbxqzeOc+43Kalg5KuyGUTSk0L9/HFbWa96RuHuZ0RqSiTTuPKJjQsHMHpei64WKYjBwMGHG5Zftum0qME0QqDusXBanYJDIdTIu3Z19a9eIUCHMaU3N8jkYQ7J045Zxw0mXKL6GHmqxORlMv4gws3bTZ+tHNqpX2eBkEzeb12tAb2ANgefPf0v+YgJNMGJUTFvhWINr0Cj9jwaCPqsU4795jAWsG8qy3UA7rHuornhbC2pefBYsqUNhSd1dRI9WuX2Em5r1OT0lO6M1Mx6csZ/ICItWZ7rerlhpgwjDUj6kxpBYl216/ypPzCWvvXULRgS9Qk2ejyHASGVWdX9Ipl5nXrgxLhebXN6WN+edvcaqm+8KaKq1gzCYRU+l830N4s+YrjUxZRud5Ly1CTZvqDXxZH0gY0d0pHHAWv+545ulDjlXOfnxIc0EWjMdpQE6xStPKSSCfLhla0qGVigCqBRDGr64HByT8ZL9CnmobOqwG3jyzIo6ukc0O0uvn5iIf8gCsOQat1I/KA=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: hessammehr/LibtaskBuilder2
+        tags: true
