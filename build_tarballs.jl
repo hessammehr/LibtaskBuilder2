@@ -142,5 +142,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "LibtaskBuilder", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "LibTask", sources, script, platforms, products, dependencies)
 
