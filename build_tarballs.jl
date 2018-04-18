@@ -116,6 +116,22 @@ exit
 
 fi
 
+if [ $target = "x86_64-apple-darwin14" ]; then
+cd $WORKSPACE/srcdir
+wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-mac64.tar.gz"
+tar xzvf julia-0.6.2-mac64.tar.gz 
+rm *.tar.gz
+mv julia* julia
+LIBS="`pwd`/julia/Contents/Resources/julia/lib"
+LIBSJL="`pwd`/julia/Contents/Resources/julia/lib/julia"
+INCLUDES="`pwd`/Contents/Resources/julia/include/julia"
+cd Turing.jl/deps/
+gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -ljulia -o libtask.dylib
+mv libtask.dylib $WORKSPACE/destdir/
+exit
+
+fi
+
 
 """
 
@@ -128,7 +144,8 @@ platforms = [
     BinaryProvider.Linux(:armv7l, :glibc, :eabihf),
     BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
     BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
-    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi)
+    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
+    BinaryProvider.MacOS()
 ]
 
 # The products that we will ensure are always built
