@@ -20,7 +20,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia -o libtask.so
-mv libtask.so $WORKSPACE/destdir
+mv libtask.so $prefix/lib
 exit
 fi
 
@@ -35,7 +35,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia -o libtask.so
-mv libtask.so $WORKSPACE/destdir
+mv libtask.so $prefix/lib
 exit
 fi
 
@@ -50,7 +50,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia -o libtask.so
-mv libtask.so $WORKSPACE/destdir
+mv libtask.so $prefix/lib
 exit
 fi
 
@@ -65,7 +65,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia -o libtask.so
-mv libtask.so $WORKSPACE/destdir
+mv libtask.so $prefix/lib
 exit
 fi
 
@@ -80,7 +80,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia -o libtask.so
-mv libtask.so $WORKSPACE/destdir
+mv libtask.so $prefix/lib
 exit
 fi
 
@@ -95,7 +95,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-all-symbols -ljulia -o libtask.dll
-mv libtask.dll $WORKSPACE/destdir/
+mv libtask.dll $prefix/lib
 exit
 
 fi
@@ -111,7 +111,7 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-all-symbols -ljulia -o libtask.dll
-mv libtask.dll $WORKSPACE/destdir/
+mv libtask.dll $prefix/lib
 exit
 
 fi
@@ -127,7 +127,7 @@ LIBSJL="`pwd`/julia/Contents/Resources/julia/lib/julia"
 INCLUDES="`pwd`/Contents/Resources/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -ljulia -o libtask.dylib
-mv libtask.dylib $WORKSPACE/destdir/
+mv libtask.dylib $prefix/lib
 exit
 
 fi
