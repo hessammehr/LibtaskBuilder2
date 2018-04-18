@@ -150,7 +150,7 @@ platforms = [
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libtask", Symbol("\e\eLibTask"))
+    LibraryProduct(prefix, "libtask", :libtask)
 ]
 
 # Dependencies that must be installed before this package can be built
@@ -159,5 +159,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "LibTask", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "libtask", sources, script, platforms, products, dependencies)
 
