@@ -100,8 +100,8 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-all-symbols -ljulia -o libtask.dll
-mkdir $prefix/lib
-mv libtask.dll $prefix/lib
+mkdir $prefix/bin
+mv libtask.dll $prefix/bin
 exit
 
 fi
@@ -117,8 +117,8 @@ LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-all-symbols -ljulia -o libtask.dll
-mkdir $prefix/lib
-mv libtask.dll $prefix/lib
+mkdir $prefix/bin
+mv libtask.dll $prefix/bin
 exit
 
 fi
