@@ -67,7 +67,7 @@ LIBS="`pwd`/julia/lib"
 LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
-gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
+gcc -march=pentium4 -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
 mkdir $prefix/lib
 mv libtask.so $prefix/lib
 exit
@@ -95,11 +95,10 @@ wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-win64.tar.gz"
 tar xzvf julia-0.6.2-win64.tar.gz 
 rm *.tar.gz
 mv julia* julia
-LIBS="`pwd`/julia/lib"
-LIBSJL="`pwd`/julia/lib/julia"
+LIBS="`pwd`/julia/bin"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
-gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-all-symbols -ljulia task.c -o libtask.dll
+gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBS -Wl,--export-all-symbols -ljulia -lopenlibm task.c -o libtask.dll
 mkdir $prefix/bin
 mv libtask.dll $prefix/bin
 exit
@@ -112,11 +111,10 @@ wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-win32.tar.gz"
 tar xzvf julia-0.6.2-win32.tar.gz 
 rm *.tar.gz
 mv julia* julia
-LIBS="`pwd`/julia/lib"
-LIBSJL="`pwd`/julia/lib/julia"
+LIBS="`pwd`/julia/bin"
 INCLUDES="`pwd`/julia/include/julia"
 cd Turing.jl/deps/
-gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-all-symbols -ljulia task.c -o libtask.dll
+gcc -march=pentium4 -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBS -Wl,--export-all-symbols -ljulia -lopenlibm task.c -o libtask.dll
 mkdir $prefix/bin
 mv libtask.dll $prefix/bin
 exit
@@ -131,7 +129,7 @@ rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/Contents/Resources/julia/lib"
 LIBSJL="`pwd`/julia/Contents/Resources/julia/lib/julia"
-INCLUDES="`pwd`/Contents/Resources/julia/include/julia"
+INCLUDES="`pwd`/julia/Contents/Resources/julia/include/julia"
 cd Turing.jl/deps/
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -ljulia task.c -o libtask.dylib
 mkdir $prefix/lib
