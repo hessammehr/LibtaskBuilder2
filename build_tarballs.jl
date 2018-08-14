@@ -3,7 +3,7 @@ using BinaryBuilder
 # Collection of sources required to build LibtaskBuilder
 sources = [
     "https://github.com/yebai/Turing.jl.git" =>
-    "e3c430d3a53d413e51e14cb47f0b1817a47ca358",
+    "a87684d63d5d6f6d7daf3ba9adc0be0e6dc09f34",
 
 ]
 
