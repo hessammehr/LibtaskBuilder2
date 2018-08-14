@@ -91,7 +91,7 @@ fi
 
 if [ $target = "x86_64-w64-mingw32" ]; then
 cd $WORKSPACE/srcdir
-wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-win64.tar.gz"
+wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-win64.tar.gz"
 tar xzvf julia-0.6.2-win64.tar.gz 
 rm *.tar.gz
 mv julia* julia
@@ -107,7 +107,7 @@ fi
 
 if [ $target = "i686-w64-mingw32" ]; then
 cd $WORKSPACE/srcdir
-wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-win32.tar.gz"
+wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-win32.tar.gz"
 tar xzvf julia-0.6.2-win32.tar.gz 
 rm *.tar.gz
 mv julia* julia
@@ -123,7 +123,7 @@ fi
 
 if [ $target = "x86_64-apple-darwin14" ]; then
 cd $WORKSPACE/srcdir
-wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-mac64.tar.gz"
+wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-mac64.tar.gz"
 tar xzvf julia-0.6.2-mac64.tar.gz 
 rm *.tar.gz
 mv julia* julia
