@@ -7,8 +7,7 @@ sources = [
 
 ]
 
-# Bash recipe for building across all platforms
-script = raw"""
+#= No binary available for Julia 1.0
 if [ $target = "aarch64-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
 wget "https://julialang-s3.julialang.org/bin/linux/aarch64/1.0/julia-1.0.0-linux-aarch64.tar.gz"
@@ -24,11 +23,13 @@ mkdir $prefix/lib
 mv libtask.so $prefix/lib
 exit
 fi
+=#
 
-if [ $target = "arm-linux-gnueabihf" ]; then
+#= ---- No binary available for Julia 1.0
+if [ $target = "powerpc64le-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/armv7l/1.0/julia-1.0.0-linux-armv7l.tar.gz"
-tar xzvf julia-1.0.0-linux-armv7l.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/1.0/julia-1.0.0-linux-ppc64le.tar.gz"
+tar xzvf julia-1.0.0-latest-linux-ppc64le.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -40,11 +41,14 @@ mkdir $prefix/lib
 mv libtask.so $prefix/lib
 exit
 fi
+=#
 
-if [ $target = "powerpc64le-linux-gnu" ]; then
+# Bash recipe for building across all platforms
+script = raw"""
+if [ $target = "arm-linux-gnueabihf" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/1.0/julia-1.0.0-linux-ppc64le.tar.gz"
-tar xzvf julia-1.0.0-latest-linux-ppc64le.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/armv7l/1.0/julia-1.0.0-linux-armv7l.tar.gz"
+tar xzvf julia-1.0.0-linux-armv7l.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -146,9 +150,9 @@ fi
 platforms = [
     BinaryProvider.Linux(:i686, :glibc, :blank_abi),
     BinaryProvider.Linux(:x86_64, :glibc, :blank_abi),
-    BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
+  # BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
     BinaryProvider.Linux(:armv7l, :glibc, :eabihf),
-    BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
+  # BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
     BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
     BinaryProvider.MacOS()
