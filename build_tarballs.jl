@@ -11,8 +11,8 @@ sources = [
 script = raw"""
 if [ $target = "aarch64-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/aarch64/0.6/julia-0.6.2-linux-aarch64.tar.gz"
-tar xzvf julia-0.6.2-linux-aarch64.tar.gz 
+wget "https://julialang-s3.julialang.org/bin/linux/aarch64/1.0/julia-1.0.0-linux-aarch64.tar.gz"
+tar xzvf julia-1.0.0-linux-aarch64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -27,8 +27,8 @@ fi
 
 if [ $target = "arm-linux-gnueabihf" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/armv7l/0.6/julia-0.6.2-linux-armv7l.tar.gz"
-tar xzvf julia-0.6.2-linux-armv7l.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/armv7l/1.0/julia-1.0.0-linux-armv7l.tar.gz"
+tar xzvf julia-1.0.0-linux-armv7l.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -43,8 +43,8 @@ fi
 
 if [ $target = "powerpc64le-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/0.6/julia-0.6-latest-linux-ppc64le.tar.gz"
-tar xzvf julia-0.6-latest-linux-ppc64le.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/1.0/julia-1.0.0-linux-ppc64le.tar.gz"
+tar xzvf julia-1.0.0-latest-linux-ppc64le.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -59,8 +59,8 @@ fi
 
 if [ $target = "i686-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/x86/0.6/julia-0.6.2-linux-i686.tar.gz"
-tar xzvf julia-0.6.2-linux-i686.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/x86/1.0/julia-1.0.0-linux-i686.tar.gz"
+tar xzvf julia-1.0.0-linux-i686.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -75,8 +75,8 @@ fi
 
 if [ $target = "x86_64-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/x64/0.6/julia-0.6.2-linux-x86_64.tar.gz"
-tar xzvf julia-0.6.2-linux-x86_64.tar.gz 
+wget "https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.0-linux-x86_64.tar.gz"
+tar xzvf julia-1.0.0-linux-x86_64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -92,7 +92,7 @@ fi
 if [ $target = "x86_64-w64-mingw32" ]; then
 cd $WORKSPACE/srcdir
 wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-win64.tar.gz"
-tar xzvf julia-0.6.2-win64.tar.gz 
+tar xzvf julia-1.0.0-win64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/bin"
@@ -108,7 +108,7 @@ fi
 if [ $target = "i686-w64-mingw32" ]; then
 cd $WORKSPACE/srcdir
 wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-win32.tar.gz"
-tar xzvf julia-0.6.2-win32.tar.gz 
+tar xzvf julia-1.0.0-win32.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/bin"
@@ -124,7 +124,7 @@ fi
 if [ $target = "x86_64-apple-darwin14" ]; then
 cd $WORKSPACE/srcdir
 wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-mac64.tar.gz"
-tar xzvf julia-0.6.2-mac64.tar.gz 
+tar xzvf julia-1.0.0-mac64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/Contents/Resources/julia/lib"
