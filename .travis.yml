@@ -19,8 +19,8 @@ sudo: required
 
 # Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl"); Pkg.pin("BinaryProvider",v"0.3.2")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.pin("BinaryBuilder",v"0.0.4"); Pkg.build()'
 
 script:
   - julia build_tarballs.jl

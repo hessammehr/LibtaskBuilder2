@@ -3,16 +3,15 @@ using BinaryBuilder
 # Collection of sources required to build LibtaskBuilder
 sources = [
     "https://github.com/yebai/Turing.jl.git" =>
-    "e3c430d3a53d413e51e14cb47f0b1817a47ca358",
+    "a87684d63d5d6f6d7daf3ba9adc0be0e6dc09f34",
 
 ]
 
-# Bash recipe for building across all platforms
-script = raw"""
+#= No binary available for Julia 1.0
 if [ $target = "aarch64-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/aarch64/0.6/julia-0.6.2-linux-aarch64.tar.gz"
-tar xzvf julia-0.6.2-linux-aarch64.tar.gz 
+wget "https://julialang-s3.julialang.org/bin/linux/aarch64/1.0/julia-1.0.0-linux-aarch64.tar.gz"
+tar xzvf julia-1.0.0-linux-aarch64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -24,11 +23,13 @@ mkdir $prefix/lib
 mv libtask.so $prefix/lib
 exit
 fi
+=#
 
-if [ $target = "arm-linux-gnueabihf" ]; then
+#= ---- No binary available for Julia 1.0
+if [ $target = "powerpc64le-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/armv7l/0.6/julia-0.6.2-linux-armv7l.tar.gz"
-tar xzvf julia-0.6.2-linux-armv7l.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/1.0/julia-1.0.0-linux-ppc64le.tar.gz"
+tar xzvf julia-1.0.0-latest-linux-ppc64le.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -40,11 +41,14 @@ mkdir $prefix/lib
 mv libtask.so $prefix/lib
 exit
 fi
+=#
 
-if [ $target = "powerpc64le-linux-gnu" ]; then
+# Bash recipe for building across all platforms
+script = raw"""
+if [ $target = "arm-linux-gnueabihf" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/0.6/julia-0.6-latest-linux-ppc64le.tar.gz"
-tar xzvf julia-0.6-latest-linux-ppc64le.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/armv7l/1.0/julia-1.0.0-linux-armv7l.tar.gz"
+tar xzvf julia-1.0.0-linux-armv7l.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -59,8 +63,8 @@ fi
 
 if [ $target = "i686-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/x86/0.6/julia-0.6.2-linux-i686.tar.gz"
-tar xzvf julia-0.6.2-linux-i686.tar.gz
+wget "https://julialang-s3.julialang.org/bin/linux/x86/1.0/julia-1.0.0-linux-i686.tar.gz"
+tar xzvf julia-1.0.0-linux-i686.tar.gz
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -75,8 +79,8 @@ fi
 
 if [ $target = "x86_64-linux-gnu" ]; then
 cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/x64/0.6/julia-0.6.2-linux-x86_64.tar.gz"
-tar xzvf julia-0.6.2-linux-x86_64.tar.gz 
+wget "https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.0-linux-x86_64.tar.gz"
+tar xzvf julia-1.0.0-linux-x86_64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/lib"
@@ -91,8 +95,8 @@ fi
 
 if [ $target = "x86_64-w64-mingw32" ]; then
 cd $WORKSPACE/srcdir
-wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-win64.tar.gz"
-tar xzvf julia-0.6.2-win64.tar.gz 
+wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-win64.tar.gz"
+tar xzvf julia-1.0.0-win64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/bin"
@@ -107,8 +111,8 @@ fi
 
 if [ $target = "i686-w64-mingw32" ]; then
 cd $WORKSPACE/srcdir
-wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-win32.tar.gz"
-tar xzvf julia-0.6.2-win32.tar.gz 
+wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-win32.tar.gz"
+tar xzvf julia-1.0.0-win32.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/bin"
@@ -123,8 +127,8 @@ fi
 
 if [ $target = "x86_64-apple-darwin14" ]; then
 cd $WORKSPACE/srcdir
-wget "http://mlg.eng.cam.ac.uk/hong/julia-0.6.2-mac64.tar.gz"
-tar xzvf julia-0.6.2-mac64.tar.gz 
+wget "http://mlg.eng.cam.ac.uk/hong/julia-1.0.0-mac64.tar.gz"
+tar xzvf julia-1.0.0-mac64.tar.gz 
 rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/Contents/Resources/julia/lib"
@@ -146,9 +150,9 @@ fi
 platforms = [
     BinaryProvider.Linux(:i686, :glibc, :blank_abi),
     BinaryProvider.Linux(:x86_64, :glibc, :blank_abi),
-    BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
+  # BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
     BinaryProvider.Linux(:armv7l, :glibc, :eabihf),
-    BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
+  # BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
     BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
     BinaryProvider.MacOS()
