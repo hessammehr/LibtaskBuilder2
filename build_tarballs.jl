@@ -1,47 +1,16 @@
+# Note that this script can accept some limited command-line arguments, run
+# `julia build_tarballs.jl --help` to see a usage message.
 using BinaryBuilder
 
-# Collection of sources required to build LibtaskBuilder
+name = "Libtask"
+version = v"1.0.0"
+
+# Collection of sources required to build Libtask
 sources = [
-    "https://github.com/yebai/Turing.jl.git" =>
-    "a87684d63d5d6f6d7daf3ba9adc0be0e6dc09f34",
+    "https://github.com/TuringLang/Libtask.git" =>
+    "fbe2feb0dab2f9d3d59f7710ff95c0cb2e61a835",
 
 ]
-
-#= No binary available for Julia 1.0
-if [ $target = "aarch64-linux-gnu" ]; then
-cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/aarch64/1.0/julia-1.0.0-linux-aarch64.tar.gz"
-tar xzvf julia-1.0.0-linux-aarch64.tar.gz 
-rm *.tar.gz
-mv julia* julia
-LIBS="`pwd`/julia/lib"
-LIBSJL="`pwd`/julia/lib/julia"
-INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps
-gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
-mkdir $prefix/lib
-mv libtask.so $prefix/lib
-exit
-fi
-=#
-
-#= ---- No binary available for Julia 1.0
-if [ $target = "powerpc64le-linux-gnu" ]; then
-cd $WORKSPACE/srcdir
-wget "https://julialang-s3.julialang.org/bin/linux/ppc64le/1.0/julia-1.0.0-linux-ppc64le.tar.gz"
-tar xzvf julia-1.0.0-latest-linux-ppc64le.tar.gz
-rm *.tar.gz
-mv julia* julia
-LIBS="`pwd`/julia/lib"
-LIBSJL="`pwd`/julia/lib/julia"
-INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps/
-gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
-mkdir $prefix/lib
-mv libtask.so $prefix/lib
-exit
-fi
-=#
 
 # Bash recipe for building across all platforms
 script = raw"""
@@ -54,7 +23,7 @@ mv julia* julia
 LIBS="`pwd`/julia/lib"
 LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps/
+cd Libtask
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
 mkdir $prefix/lib
 mv libtask.so $prefix/lib
@@ -70,7 +39,7 @@ mv julia* julia
 LIBS="`pwd`/julia/lib"
 LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps/
+cd Libtask
 gcc -march=pentium4 -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
 mkdir $prefix/lib
 mv libtask.so $prefix/lib
@@ -86,7 +55,7 @@ mv julia* julia
 LIBS="`pwd`/julia/lib"
 LIBSJL="`pwd`/julia/lib/julia"
 INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps/
+cd Libtask
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -Wl,--export-dynamic -ljulia task.c -o libtask.so
 mkdir $prefix/lib
 mv libtask.so $prefix/lib
@@ -101,7 +70,7 @@ rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/bin"
 INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps/
+cd Libtask
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBS -Wl,--export-all-symbols -ljulia -lopenlibm task.c -o libtask.dll
 mkdir $prefix/bin
 mv libtask.dll $prefix/bin
@@ -117,7 +86,7 @@ rm *.tar.gz
 mv julia* julia
 LIBS="`pwd`/julia/bin"
 INCLUDES="`pwd`/julia/include/julia"
-cd Turing.jl/deps/
+cd Libtask
 gcc -march=pentium4 -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBS -Wl,--export-all-symbols -ljulia -lopenlibm task.c -o libtask.dll
 mkdir $prefix/bin
 mv libtask.dll $prefix/bin
@@ -134,7 +103,7 @@ mv julia* julia
 LIBS="`pwd`/julia/Contents/Resources/julia/lib"
 LIBSJL="`pwd`/julia/Contents/Resources/julia/lib/julia"
 INCLUDES="`pwd`/julia/Contents/Resources/julia/include/julia"
-cd Turing.jl/deps/
+cd Libtask
 gcc -O2 -shared -std=gnu99 -I$INCLUDES -DJULIA_ENABLE_THREADING=1 -fPIC -L$LIBSJL -L$LIBS -ljulia task.c -o libtask.dylib
 mkdir $prefix/lib
 mv libtask.dylib $prefix/lib
@@ -148,14 +117,12 @@ fi
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
 platforms = [
-    BinaryProvider.Linux(:i686, :glibc, :blank_abi),
-    BinaryProvider.Linux(:x86_64, :glibc, :blank_abi),
-  # BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
-    BinaryProvider.Linux(:armv7l, :glibc, :eabihf),
-  # BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
-    BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
-    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
-    BinaryProvider.MacOS()
+    Linux(:i686, :glibc),
+    Linux(:x86_64, :glibc),
+    Linux(:armv7l, :glibc, :eabihf),
+    MacOS(:x86_64),
+    Windows(:i686),
+    Windows(:x86_64)
 ]
 
 # The products that we will ensure are always built
@@ -169,5 +136,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "libtask", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
 
